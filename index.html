@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Text to Speech</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Text to Speech Converter</h1>
+        <form action="/speak" method="post">
+            <textarea name="text" rows="6" placeholder="Enter your text here..." required></textarea>
+            <button type="submit">Convert to Speech</button>
+        </form>
+
+        {% if audio_file %}
+        <div class="audio-controls">
+            <h3>Your Speech:</h3>
+            <audio controls autoplay>
+                <source src="{{ url_for('serve_audio', filename=audio_file) }}" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+            <br>
+            <a href="{{ url_for('serve_audio', filename=audio_file) }}" download>
+                <button>Download MP3</button>
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
